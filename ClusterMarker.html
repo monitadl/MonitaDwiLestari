@@ -1,0 +1,65 @@
+<html>
+    <head>
+        <title>Latihan Google Map API</title>
+        <style>
+            #map {
+                background-color: gray;
+                width: 100%;
+                height: 500px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="map"></div>
+    </body>
+    <script>
+        function initMap(){
+    var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 10,
+    center: {lat: -5.400549, lng: 105.266272}
+     });
+     var infoWin = new google.maps.InfoWindow();
+            // console.log(map);
+            var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        
+            var markers = locations.map(function(location, i) {
+                var marker = new google.maps.Marker({
+                    position: location,
+                    label: labels[i % labels.length]
+                });
+     google.maps.event.addListener(marker, 'click', function(evt) {
+      infoWin.setContent(location.info);
+      infoWin.open(map, marker);
+    })
+    return marker;
+                }); 
+            console.log(locations);
+            console.log(markers);
+
+            var markerCluster = new MarkerClusterer(map, markers,
+                {imagePath: 'images/m'});
+        
+            var d = markerCluster.distanceBetweenPoints_(markers[2].getPosition(),markers[4].getPosition());
+            console.log(markerCluster.getCalculator());
+            // var marker=new google.maps.Marker({position:center,map:map});
+            // console.log(marker);
+        }
+
+        var locations = [
+        {lat: -5.669870, lng: 105.007643, info:"<h3>Kelumbayan Barat</h3>+'<p>Sidoharjo,Kabupaten Tanggamus, Lampung"}, 
+        {lat: -5.245825, lng: 104.681699, info:"<h3>Air Naningan</h3>+'<p>Air Naningan,Kabupaten Tanggamus,Lampung"}, 
+        {lat: -5.715237, lng: 105.013800, info: "<h3>Kelumbayan</h3>+'<p>Napal, Kabupaten Tanggamus, Lampung"},
+        {lat: -5.596789, lng: 105.073906, info: "<h3>Way Ratai</h3>+'<p>Padang Cermin, Kabupaten Pesawaran, Lampung"}, 
+        {lat: -5.383239, lng: 105.4926992,info: "<h3>Wawasan</h3>+'<p>Tanjung Sari, Kabupaten Lampung Selatan, Lampung"}, 
+        {lat: -5.403112, lng: 105.260396, info: "<h3>Melinting</h3>+'<p>Melinting, Kabupaten Lampung Timur, Lampung"}, 
+        {lat: -5.492655, lng: 104.623954, info: "<h3>Kota Agung Pusat</h3>+'<p>Kuripan, Kabupaten Tanggamus, Lampung"}, 
+        {lat: -5.762299, lng: 104.623945, info: "<h3>Pematang Sawa</h3>+'<p>Tirom, Kabupaten Tanggamus, Lampung"}, 
+        
+        
+      ]
+    </script>
+    <script async defer 
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAbUu4Ug1bXx7CKECeNst_1yU9uO3-__q8&callback=initMap"></script>
+    <script src="src/markerclusterer.js">
+    </script>
+</html>
